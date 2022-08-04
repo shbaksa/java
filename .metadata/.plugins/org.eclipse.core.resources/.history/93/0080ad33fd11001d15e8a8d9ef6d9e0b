@@ -1,0 +1,24 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import dto.GongjiDto;
+
+public class GongjiDao {
+	
+	Connection conn;
+	PreparedStatement pstmt;
+	ResultSet rs;
+	String sql = "";
+	String title, content, gubun, id;
+	GongjiDto gdto;
+
+	public GongjiDao() throws Exception {
+		Class.forName("com.mysql.jdbc.Driver");
+		String db = "jdbc:mysql://localhost:3306/pension";
+		conn = DriverManager.getConnection(db, "root", "1234");
+	}
+}

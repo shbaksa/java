@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+ <script>
+  $(function()
+  {
+	  
+  });
+ </script>
+</head>
+<body>	<!-- show.hide.jsp	=> show(), hide() -->
+	<input type="button" id="view1" value="글자보이기">
+	<div id="aa"><h2>안녕하세요</h2></div>
+	<hr>
+	<img src="1.jpg" width="200">
+
+</body>
+</html>

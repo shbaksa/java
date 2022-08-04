@@ -1,0 +1,20 @@
+package dao;
+
+import java.sql.*;
+
+import dto.GongjiDto;
+
+public class MemberDao {
+	
+	Connection conn;
+	PreparedStatement pstmt;
+	ResultSet rs;
+	String sql = "";
+	String id,userid,name,email,phone,pwd;
+
+	public MemberDao() throws Exception {
+		Class.forName("com.mysql.jdbc.Driver");
+		String db = "jdbc:mysql://localhost:3306/pension";
+		conn = DriverManager.getConnection(db, "root", "1234");
+	}
+}

@@ -1,0 +1,7 @@
+package dto;
+
+public class ReserveDto {
+	
+	private int id,bang_id,inwon,charcoal,bbq,total,state;
+    private String inday,outday,userid,writeday,bang;
+}

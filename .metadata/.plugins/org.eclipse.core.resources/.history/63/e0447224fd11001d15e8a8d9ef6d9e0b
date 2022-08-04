@@ -1,0 +1,8 @@
+package dto;
+
+public class GongjiDto {
+	
+	private int id, gubun;
+	private String title, content, writeday;
+	
+}

@@ -1,0 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!-- member/member_input_ok.jsp -->
+<%@ page import="dao.MemberDao"%>
+
+<%
+MemberDao mdao = new MemberDao();
+mdao.member_input_ok(request, response);
+%>
+
+

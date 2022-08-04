@@ -1,0 +1,115 @@
+package dao;
+
+import java.sql.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspWriter;
+
+import dto.MemberDto;
+
+public class MemberDao {
+	
+	Connection conn;
+	PreparedStatement pstmt;
+	ResultSet rs;
+	String sql = "";
+	String id,userid,name,email,phone,pwd;
+
+	public MemberDao() throws Exception {
+		Class.forName("com.mysql.jdbc.Driver");
+		String db = "jdbc:mysql://localhost:3306/pension";
+		conn = DriverManager.getConnection(db, "root", "1234");
+	}
+	
+	public void member_input(HttpServletRequest request,HttpServletResponse response, HttpSession session) throws Exception{
+		
+		request.setCharacterEncoding("utf-8");
+		userid = request.getParameter("userid");
+		pwd = request.getParameter("pwd");
+		name = request.getParameter("name");
+		phone = request.getParameter("phone");
+		email = request.getParameter("email");
+		
+		sql = "insert into member(userid,pwd,name,phone,email,writeday) values(?,?,?,?,?,now())";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, userid);
+		pstmt.setString(2, pwd);
+		pstmt.setString(3, name);
+		pstmt.setString(4, phone);
+		pstmt.setString(5, email);
+		pstmt.executeUpdate();
+		
+		session.setAttribute("userid", userid);
+		session.setAttribute("name", name);
+		
+		response.sendRedirect("../main/index.jsp");
+	}
+	
+	public void userid_check(HttpServletRequest request, JspWriter out) throws Exception{
+		
+		userid = request.getParameter("userid");
+		
+		sql = "select count(*) as cnt from member where userid=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, userid);
+		rs = pstmt.executeQuery();
+		rs.next();
+		
+		out.print(rs.getString("cnt"));
+	}
+	
+	public void info(HttpServletRequest request, HttpSession session) throws Exception{
+		
+		sql = "select * from member where userid=?"; 	
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, session.getAttribute("userid").toString());
+		rs = pstmt.executeQuery();
+		rs.next();
+		
+		MemberDto mdto = new MemberDto();
+		mdto.setEmail(rs.getString("email"));
+		mdto.setId(rs.getInt("id"));
+		mdto.setPhone(rs.getString("phone"));
+		mdto.setWriteday(rs.getString("writeday"));
+		
+		request.setAttribute("mdto", mdto);
+	}
+	
+	public void member_out(HttpServletRequest request , HttpServletResponse response , HttpSession session) throws Exception{
+		
+		id = request.getParameter("id");
+		
+		sql = "delete from member where id=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, id);
+		pstmt.executeUpdate();
+		
+		session.invalidate();
+		
+		response.sendRedirect("../main/index.jsp");
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
